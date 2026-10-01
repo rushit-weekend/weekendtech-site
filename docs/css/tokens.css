@@ -1,0 +1,76 @@
+/* Weekend Tech design tokens — v1.0 (30 Sep 2026) */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root {
+  /* Brand colours */
+  --wt-royal: #1E40AF;        /* WEEKEND, primary actions, links */
+  --wt-royal-dark: #1E3A8A;   /* hover / pressed */
+  --wt-royal-tint: #EEF2FF;   /* tinted sections, badges */
+  --wt-royal-ring: #C7D2FE;   /* input focus halo */
+  --wt-orange: #F26A1B;       /* tech, accent, the band — large use only on white */
+  --wt-orange-soft: #FB923C;  /* orange on royal / navy */
+  --wt-orange-deep: #C2410C;  /* small orange text on white */
+  --wt-orange-tint: #FFF1E8;  /* callouts */
+  --wt-navy: #0F1B3D;         /* body text, dark sections */
+  --wt-white: #FFFFFF;
+
+  /* Neutrals */
+  --wt-slate: #475569;        /* secondary text */
+  --wt-slate-light: #64748B;  /* captions, placeholders */
+  --wt-border: #E2E8F0;
+  --wt-border-strong: #CBD5E1;
+  --wt-surface: #F8FAFC;
+  --wt-error: #DC2626;
+  --wt-error-text: #B91C1C;
+
+  /* Semantic */
+  --wt-text: var(--wt-navy);
+  --wt-text-muted: var(--wt-slate);
+  --wt-bg: var(--wt-white);
+  --wt-link: var(--wt-royal);
+  --wt-action: var(--wt-royal);
+  --wt-action-hover: var(--wt-royal-dark);
+  --wt-accent: var(--wt-orange);
+  --wt-on-accent: var(--wt-navy);
+
+  /* Type */
+  --wt-font: 'Plus Jakarta Sans', 'Segoe UI', Helvetica, Arial, sans-serif;
+  --wt-font-mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  --wt-fs-display: clamp(2.5rem, 1.6rem + 3.6vw, 4rem);    /* 40 → 64px */
+  --wt-fs-h1: clamp(2.125rem, 1.6rem + 2.1vw, 3rem);       /* 34 → 48px */
+  --wt-fs-h2: clamp(1.75rem, 1.45rem + 1.2vw, 2.25rem);    /* 28 → 36px */
+  --wt-fs-h3: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);    /* 22 → 28px */
+  --wt-fs-h4: clamp(1.1875rem, 1.12rem + 0.3vw, 1.375rem); /* 19 → 22px */
+  --wt-fs-body-lg: 1.125rem;  /* 18px */
+  --wt-fs-body: 1rem;         /* 16px */
+  --wt-fs-small: 0.875rem;    /* 14px */
+  --wt-fs-overline: 0.75rem;  /* 12px */
+
+  /* Spacing (4px base) */
+  --wt-space-1: 4px;  --wt-space-2: 8px;  --wt-space-3: 12px; --wt-space-4: 16px;
+  --wt-space-6: 24px; --wt-space-8: 32px; --wt-space-12: 48px; --wt-space-16: 64px;
+  --wt-space-24: 96px; --wt-space-32: 128px;
+
+  /* Radius, elevation, motion */
+  --wt-radius-sm: 10px;
+  --wt-radius-md: 16px;
+  --wt-radius-lg: 24px;
+  --wt-radius-pill: 999px;
+  --wt-shadow-float: 0 8px 24px rgba(15, 27, 61, 0.12);
+  --wt-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --wt-dur-fast: 150ms;
+  --wt-dur-base: 220ms;
+
+  /* Layout */
+  --wt-container: 1200px;
+  --wt-measure: 680px;
+}
+
+body { font-family: var(--wt-font); color: var(--wt-text); background: var(--wt-bg); font-size: var(--wt-fs-body); line-height: 1.625; }
+h1 { font-size: var(--wt-fs-h1); font-weight: 800; letter-spacing: -0.025em; line-height: 1.17; }
+h2 { font-size: var(--wt-fs-h2); font-weight: 700; letter-spacing: -0.02em; line-height: 1.22; }
+h3 { font-size: var(--wt-fs-h3); font-weight: 700; letter-spacing: -0.015em; line-height: 1.29; }
+h4 { font-size: var(--wt-fs-h4); font-weight: 600; letter-spacing: -0.01em; line-height: 1.36; }
+a { color: var(--wt-link); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--wt-royal); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
