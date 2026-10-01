@@ -68,8 +68,13 @@ form.addEventListener('submit', async (e) => {
 
   try {
     const res = await fetch(FORM_ENDPOINT, { method: 'POST', body: new URLSearchParams(new FormData(form)) });
-    const data = await res.json();
-    if (!data.ok) throw new Error(data.error || 'send_failed');
+    let data = null;
+    try { data = await res.json(); } catch { /* not JSON, handled below */ }
+    // Apps Script runs the script, then redirects to googleusercontent.com for the reply.
+    // That last hop occasionally returns an HTML page instead of the JSON, but by then the
+    // enquiry is already saved and emailed, so a redirected response still counts as sent.
+    const delivered = data ? data.ok : res.redirected && new URL(res.url).hostname.endsWith('googleusercontent.com');
+    if (!delivered) throw new Error((data && data.error) || 'send_failed');
     showSent(form.elements.email.value.trim());
   } catch {
     submit.disabled = false;
