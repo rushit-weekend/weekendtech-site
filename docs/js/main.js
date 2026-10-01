@@ -15,11 +15,13 @@ document.addEventListener('keydown', (e) => {
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Contact form: validate, then open the visitor's email app with the details filled in.
-// Swap this for a form service or API endpoint once one is chosen.
+// Contact form: validate, then send to the Google Apps Script web app
+// (apps-script/contact-form.gs), which emails hello@ and logs to a Google Sheet.
+const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwnbxQdB1M8q4NC6qsgfVOx0ZhTUdNllQxCl_Rw6CWXOYsJemCMM_J3-9KcCxr9uHJoug/exec';
 const CONTACT_EMAIL = 'hello@weekendtech.org';
 const form = document.getElementById('contact-form');
 const note = document.getElementById('form-note');
+const submit = form.querySelector('button[type="submit"]');
 
 const checks = {
   name: (v) => v.trim().length > 0,
@@ -43,14 +45,36 @@ Object.keys(checks).forEach((name) => {
   });
 });
 
-form.addEventListener('submit', (e) => {
+function showSent(email) {
+  const sent = document.createElement('div');
+  sent.className = 'form-sent';
+  sent.setAttribute('role', 'status');
+  sent.tabIndex = -1;
+  sent.innerHTML = '<h3>Thanks, we have your project details</h3><p></p>';
+  sent.querySelector('p').textContent = `We'll reply to you at ${email}. If it's urgent, write to ${CONTACT_EMAIL}.`;
+  form.replaceWith(sent);
+  sent.focus();
+}
+
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const invalid = Object.keys(checks).map((n) => form.elements[n]).filter((f) => !validate(f));
   if (invalid.length) { invalid[0].focus(); return; }
 
-  const { name, email, kind, message } = form.elements;
-  const subject = `New project: ${kind.value}`;
-  const body = `${message.value.trim()}\n\n${name.value.trim()}\n${email.value.trim()}`;
-  window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  note.textContent = `Your email app should open with the details filled in. If it doesn't, write to ${CONTACT_EMAIL}.`;
+  submit.disabled = true;
+  submit.textContent = 'Sending…';
+  note.textContent = '';
+  note.classList.remove('is-error');
+
+  try {
+    const res = await fetch(FORM_ENDPOINT, { method: 'POST', body: new URLSearchParams(new FormData(form)) });
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'send_failed');
+    showSent(form.elements.email.value.trim());
+  } catch {
+    submit.disabled = false;
+    submit.textContent = 'Send project details';
+    note.classList.add('is-error');
+    note.textContent = `Your details didn't send. Check your connection and try again, or email ${CONTACT_EMAIL}.`;
+  }
 });

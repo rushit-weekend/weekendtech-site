@@ -237,6 +237,12 @@ img, svg { display: block; max-width: 100%; }
 @media (max-width: 639px) { .contact-form .btn { justify-self: stretch; } }
 .form-note:empty { display: none; }
 .form-note { font-size: var(--wt-fs-small); color: var(--wt-slate); }
+.form-note.is-error { color: var(--wt-error-text); }
+.form-sent { padding: var(--wt-space-8); border: 1px solid var(--wt-border); border-radius: var(--wt-radius-md); }
+.form-sent h3 { font-size: var(--wt-fs-h4); font-weight: 600; letter-spacing: -0.01em; line-height: 1.36; }
+.form-sent p { margin-top: var(--wt-space-2); color: var(--wt-slate); }
+.hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.btn[disabled] { opacity: 0.6; cursor: progress; }
 
 /* Footer */
 .site-footer { background: var(--wt-navy); color: var(--wt-white); padding-block: var(--wt-space-12); }
