@@ -185,7 +185,7 @@ img, svg { display: block; max-width: 100%; }
   width: 32px; height: 32px; margin-right: var(--wt-space-3);
   font-weight: 700; color: var(--wt-royal); background: var(--wt-royal-tint); border-radius: var(--wt-radius-pill);
 }
-.step-when { font-size: var(--wt-fs-small); font-weight: 600; color: var(--wt-slate); }
+
 .steps h3 { margin-top: var(--wt-space-4); font-size: var(--wt-fs-h4); font-weight: 600; letter-spacing: -0.01em; line-height: 1.36; }
 .steps p { margin-top: var(--wt-space-2); color: var(--wt-slate); }
 
